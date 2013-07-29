@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class DisplayArea extends View {
@@ -33,12 +34,17 @@ public class DisplayArea extends View {
     	 missile = new Missile(this.getContext(), new DPoint(50, 200), angle, power);
      }
      
-     protected void  onSizeChanged  (int w, int h, int oldw, int oldh){
+     protected void onSizeChanged  (int w, int h, int oldw, int oldh){
     	 if (w!=0&&h!=0){
              Globals.maxX=w;
              Globals.maxY=h;
     	 }
          Log.i(tag, String.format("width: %s, height: %s", this.getWidth(),
          		this.getHeight()));
+     }
+     
+     //TODO: make this the method that determines firing parameters
+     public boolean onTouchEvent(MotionEvent e){
+    	 return super.onTouchEvent(e);
      }
 }
