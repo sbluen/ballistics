@@ -83,14 +83,26 @@ public class DPoint implements Cloneable{
 	}
 	
 	/**
-	 * returns the result of multiplying the coordinates of the point by a scalar value
+	 * Returns the result of multiplying the coordinates of the point by a scalar value
 	 * @return 
 	 */
 	public DPoint times(double value){
 		return new DPoint(this.x * value, this.y * value);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return String.format("DPoint(%s, %s)", this.x, this.y);
+	}
+	
+	/*
+	 * Returns the Euclidean distance between this point and other.
+	 * @return the distance as a double
+	 */
+	public double getDistance(DPoint other){
+		return Math.sqrt(Math.pow(other.x-x, 2) + Math.pow(other.y-y, 2));
 	}
 }

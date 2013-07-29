@@ -9,10 +9,10 @@ public class Globals {
 	//Mask may be used for terrain destruction
 	public static boolean[][] mask;
 	
-	public static final double GRAVITY = 5;
-	public static final double SCALE = 0.04;
+	public static final float GRAVITY = 5;
+	public static final float SCALE = 0.04f;
 	
 	//In fractions of the screen. Used in the utility class functions
-	public static final double BUMP_HEIGHT_MAX = 0.4;
-	public static final double BUMP_WIDTH_MAX = 0.3;
+	public static final float BUMP_HEIGHT_MAX = 0.4f;
+	public static final float BUMP_WIDTH_MAX = 0.3f;
 }

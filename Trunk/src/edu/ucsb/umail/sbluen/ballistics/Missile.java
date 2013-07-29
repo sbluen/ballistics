@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -20,21 +21,21 @@ import android.view.View;
  */
 public class Missile extends View {
 	public static final String tag = "Missile";
-	private DPoint acc, vel, pos;
+	private PointF acc, vel, pos;
 	private Drawable sprite;
 	private Paint paint;
 	
-	public Missile(Context context, DPoint startPosition, double angle, double power){
+	public Missile(Context context, PointF startPosition, double angle, double power){
 		super(context);
 		this.paint = new Paint();
 		paint.setARGB(255, 0, 255, 0);	//(alpha, red, green, blue)
 		paint.setStrokeWidth(5);
 		
 		this.pos=startPosition;
-		vel = new DPoint(power*Math.cos(angle), power*Math.sin(angle));
+		vel = new PointF(power*Math.cos(angle), power*Math.sin(angle));
 		//Log.i(tag, String.format("power*cos(angle)=%s*cos(%s)=%s", power, angle, vel.x));
 		//Log.i(tag, vel.toString());
-		acc = new DPoint(0, -Globals.GRAVITY);
+		acc = new PointF(0, -Globals.GRAVITY);
 		sprite = this.getResources().getDrawable(R.drawable.world);
 	}
 	
@@ -52,8 +53,8 @@ public class Missile extends View {
 		//TODO: remove this statement
 		if (!inBounds()) return false;
 		
-		pos.add(vel.times(Globals.SCALE));
-		vel.add(acc);
+		pos.offset(Utility.scalarMultiply(vel, Globals.SCALE));
+		vel.offset(acc.x, acc.y);
 		//int tempx = (int)pos.x;
 		//int tempy = Globals.maxY - (int)pos.y;
 		//this.sprite.setBounds(tempx, tempy, tempx+50, tempy+50);
@@ -68,17 +69,17 @@ public class Missile extends View {
 	 */
 	public void Trace(Canvas canvas){
 		//maxX*2 is a value chosen so that most shots will have less points than that.
-		ArrayList<Point> points = new ArrayList<Point>(Globals.maxX*2);
+		ArrayList<PointF> points = new ArrayList<PointF>(Globals.maxX*2);
 		while (this.inBounds()){
 			//no point in checking the same spot twice
 			if (points.isEmpty() || points.get(points.size()-1)
-			== pos.getPoint()) continue;
-			points.add(new Point(pos.getPoint()));
+			== pos) continue;
+			points.add(pos);
 			this.step();
 			}
 		for (int i=0; i<points.size(); i++){
-			int tempx=points.get(i).x;
-			int tempy=points.get(i).y;
+			int tempx=(int) points.get(i).x;
+			int tempy=(int) points.get(i).y;
 			this.sprite.setBounds(tempx, tempy, tempx+50, tempy+50);
 			this.sprite.draw(canvas);
 		}
@@ -88,7 +89,6 @@ public class Missile extends View {
 	 * draws the sprite
 	 */
 	public void draw(Canvas canvas){
-		Point p = pos.getPoint();	//convert to a point composed of ints
-		if (inBounds()) canvas.drawPoint(p.x, Globals.maxY - p.y, paint);
+		if (inBounds()) canvas.drawPoint(pos.x, Globals.maxY - pos.y, paint);
 	}
 }
