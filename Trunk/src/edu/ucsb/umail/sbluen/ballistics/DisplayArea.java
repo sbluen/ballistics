@@ -47,7 +47,7 @@ public class DisplayArea extends View {
      
      public void fire(double angle, double power){
     	 Log.i(tag, "angle: "+String.valueOf(angle)+"\npower: "+String.valueOf(power));
-    	 missile = new Missile(this.getContext(), new DPoint(50, 200), angle, power);
+    	 missile = new Missile(this.getContext(), new PointF(50, 200), angle, power);
      }
      
      protected void onSizeChanged  (int w, int h, int oldw, int oldh){
