@@ -79,7 +79,7 @@ public class Game extends Activity {
         	public void onClick(View v){
         		Log.i(tag, "firebutton clicked");
         		displayarea.fire(
-            		Math.toRadians(Integer.parseInt(
+            		(float) Math.toRadians(Integer.parseInt(
             					String.valueOf(angleedittext.getText())
             		)),
         			Integer.parseInt(String.valueOf(poweredittext.getText()))

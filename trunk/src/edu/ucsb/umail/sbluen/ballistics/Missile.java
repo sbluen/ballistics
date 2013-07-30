@@ -21,21 +21,21 @@ import android.view.View;
  */
 public class Missile extends View {
 	public static final String tag = "Missile";
-	private PointF acc, vel, pos;
+	private ExtPoint acc, vel, pos;
 	private Drawable sprite;
 	private Paint paint;
 	
-	public Missile(Context context, PointF startPosition, double angle, double power){
+	public Missile(Context context, ExtPoint startPosition, float angle, float power){
 		super(context);
 		this.paint = new Paint();
 		paint.setARGB(255, 0, 255, 0);	//(alpha, red, green, blue)
 		paint.setStrokeWidth(5);
 		
 		this.pos=startPosition;
-		vel = new PointF(power*Math.cos(angle), power*Math.sin(angle));
+		vel = new ExtPoint(power*(float)Math.cos(angle), power*(float)Math.sin(angle));
 		//Log.i(tag, String.format("power*cos(angle)=%s*cos(%s)=%s", power, angle, vel.x));
 		//Log.i(tag, vel.toString());
-		acc = new PointF(0, -Globals.GRAVITY);
+		acc = new ExtPoint(0, -Globals.GRAVITY);
 		sprite = this.getResources().getDrawable(R.drawable.world);
 	}
 	
@@ -51,10 +51,8 @@ public class Missile extends View {
 	public boolean step(){
 		//don't even want to do the math if we're off screen, just for now
 		//TODO: remove this statement
-		if (!inBounds()) return false;
-		
-		pos.offset(Utility.scalarMultiply(vel, Globals.SCALE));
-		vel.offset(acc.x, acc.y);
+		pos = vel.plus(vel.times(Globals.SCALE));
+		vel = vel.plus(acc);
 		//int tempx = (int)pos.x;
 		//int tempy = Globals.maxY - (int)pos.y;
 		//this.sprite.setBounds(tempx, tempy, tempx+50, tempy+50);

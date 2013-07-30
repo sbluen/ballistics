@@ -45,9 +45,9 @@ public class DisplayArea extends View {
     	 }
      }
      
-     public void fire(double angle, double power){
+     public void fire(float angle, float power){
     	 Log.i(tag, "angle: "+String.valueOf(angle)+"\npower: "+String.valueOf(power));
-    	 missile = new Missile(this.getContext(), new PointF(50, 200), angle, power);
+    	 missile = new Missile(this.getContext(), new ExtPoint(50, 200), angle, power);
      }
      
      protected void onSizeChanged  (int w, int h, int oldw, int oldh){
@@ -59,16 +59,16 @@ public class DisplayArea extends View {
          		this.getHeight()));
      }
      
-     //TODO: make this the method that determines firing parameters
      public boolean onTouchEvent(MotionEvent e){
     	 if (e.getAction() == android.view.MotionEvent.ACTION_DOWN){
     		 this.dragStart = new PointF(e.getX(), e.getY());
     		 return true; //consume event
-    	 }else if (e.getAction() == android.view.MotionEvent.ACTION_UP){
-    		 this.dragEnd = new PointF(e.getX(), e.getY());    		 
-    		 return true; //consume event
     	 }else if (e.getAction() == android.view.MotionEvent.ACTION_MOVE){
     		 this.dragEnd = new PointF(e.getX(), e.getY());
+    		 return true; //consume event
+    	 }else if (e.getAction() == android.view.MotionEvent.ACTION_UP){
+    		 this.dragEnd = new PointF(e.getX(), e.getY());    		 
+    		 fire(Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
     		 return true; //consume event
     	 }else{
     		 Log.e(tag, "Invalid MotionEvent type");
