@@ -43,9 +43,15 @@ public class Utility {
 	 */
 	//TODO
 	public static int[] makeLandscape(){
-		int surfaceheight1 = (int) randrange(0.05f, 0.55f);
-		int surfaceheight2 = (int) randrange(0.05f, 0.55f);
-		//int hillstart =  
+		float surface1Y = randrange(0.05f, 0.55f);
+		float surface2Y = randrange(0.05f, 0.55f);
+		float higherSurfaceY = Math.max(surface1Y, surface2Y);
+		float hillstart = randrange(0f, 0.3f);
+		float hillend = randrange(0f, 0.3f);
+		float middleY = randrange(higherSurfaceY+0.5f, 0.8f);
+		
+				
+				
 		return null;
 	}
 	
