@@ -18,4 +18,6 @@ public class Globals {
 	public static final float BUMP_HEIGHT_MAX = 0.4f;
 	/**In fractions of the screen. Used in the utility class functions*/
 	public static final float BUMP_WIDTH_MAX = 0.3f;
+	
+	public static int pos1, pos2;
 }

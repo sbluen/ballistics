@@ -1,6 +1,6 @@
 package edu.ucsb.umail.sbluen.ballistics;
 
-import main.src.R;
+import edu.ucsb.umail.sbluen.ballistics.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;

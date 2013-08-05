@@ -1,6 +1,6 @@
 package edu.ucsb.umail.sbluen.ballistics;
 
-import main.src.R;
+import edu.ucsb.umail.sbluen.ballistics.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
