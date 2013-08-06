@@ -101,7 +101,7 @@ public class ExtPoint extends PointF{
 	 * Returns the Euclidean distance between this point and other.
 	 * @return the distance as a double
 	 */
-	public double getDistance(ExtPoint other){
-		return Math.sqrt(Math.pow(other.x-x, 2) + Math.pow(other.y-y, 2));
+	public float getDistance(ExtPoint other){
+		return (float) Math.sqrt(Math.pow(other.x-x, 2) + Math.pow(other.y-y, 2));
 	}
 }

@@ -2,17 +2,14 @@ package edu.ucsb.umail.sbluen.ballistics;
 
 import edu.ucsb.umail.sbluen.ballistics.R;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 public class Game extends Activity {
 	
@@ -87,6 +84,7 @@ public class Game extends Activity {
         	}
         });
         
+        Globals.pos1 = new ExtPoint(50, 200);
         displayarea.fire(30, 30);
         
         new Thread(new RefreshRunner()).start();
@@ -103,7 +101,7 @@ public class Game extends Activity {
                   Game.this.myGUIUpdateHandler.sendMessage(message);
 
                   try {
-                       Thread.sleep(100); // a 10th of a second
+                       Thread.sleep((long) (Globals.SECONDS_PER_FRAME*Globals.MILLISECONDS_PER_SECOND));
                   } catch (InterruptedException e) {
                        Thread.currentThread().interrupt();
                   }

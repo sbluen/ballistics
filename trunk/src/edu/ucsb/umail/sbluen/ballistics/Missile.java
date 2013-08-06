@@ -16,7 +16,7 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * class to represent missiles fired by the players
+ * Class to represent missiles fired by the players.
  * @author Steven
  *
  */
@@ -25,6 +25,7 @@ public class Missile extends View {
 	private ExtPoint acc, vel, pos;
 	private Drawable sprite;
 	private Paint paint;
+	private ExtPoint oldPos;
 	
 	public Missile(Context context, ExtPoint startPosition, float angle, float power){
 		super(context);
@@ -32,11 +33,12 @@ public class Missile extends View {
 		paint.setARGB(255, 0, 255, 0);	//(alpha, red, green, blue)
 		paint.setStrokeWidth(5);
 		
-		this.pos=startPosition;
+		pos = startPosition;
+		oldPos = startPosition;
 		vel = new ExtPoint(power*(float)Math.cos(angle), power*(float)Math.sin(angle));
-		//Log.i(tag, String.format("power*cos(angle)=%s*cos(%s)=%s", power, angle, vel.x));
+		Log.i(tag, String.format("angle, power = %f, %f", angle, power));
 		//Log.i(tag, vel.toString());
-		acc = new ExtPoint(0, -Globals.GRAVITY);
+		acc = new ExtPoint(0, -Globals.gravity);
 		sprite = this.getResources().getDrawable(R.drawable.world);
 	}
 	
@@ -51,8 +53,9 @@ public class Missile extends View {
 	 */
 	public boolean step(){
 		//don't even want to do the math if we're off screen, just for now
-		//TODO: remove this statement
-		pos = vel.plus(vel.times(Globals.SCALE));
+		//TODO: handle offscreen points
+		oldPos = pos;
+		pos = vel.plus(vel);
 		vel = vel.plus(acc);
 		//int tempx = (int)pos.x;
 		//int tempy = Globals.maxY - (int)pos.y;
@@ -88,6 +91,6 @@ public class Missile extends View {
 	 * draws the sprite
 	 */
 	public void draw(Canvas canvas){
-		if (inBounds()) canvas.drawPoint(pos.x, Globals.maxY - pos.y, paint);
+		if (inBounds()) canvas.drawLine(oldPos.x, oldPos.y, pos.x, pos.y, paint);
 	}
 }

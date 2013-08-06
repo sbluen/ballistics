@@ -1,8 +1,5 @@
 package edu.ucsb.umail.sbluen.ballistics;
 
-import java.util.Random;
-
-import android.graphics.PointF;
 import android.util.Log;
 
 /*
@@ -16,15 +13,15 @@ public class Utility {
 	 * Multiples a point and a scalar value.
 	 * @return the result of this multiplication
 	 */
-	public static PointF scalarMultiply(PointF point, float scale) {
-		PointF temp = new PointF(point.x*scale, point.y*scale); 
+	public static ExtPoint scalarMultiply(ExtPoint point, float scale) {
+		ExtPoint temp = new ExtPoint(point.x*scale, point.y*scale); 
 		return temp;
 	}
 
 /**
  * Returns the angle from dragStart to dragEnd
  */
-	public static float getAngle(PointF dragStart, PointF dragEnd) {
+	public static float getAngle(ExtPoint dragStart, ExtPoint dragEnd) {
 		return (float) Math.atan2(dragEnd.x-dragStart.x, dragEnd.y-dragStart.y);
 	}
 
@@ -34,9 +31,8 @@ public class Utility {
 	 * @param dragEnd
 	 * @return
 	 */
-	public static float getPower(PointF dragStart, PointF dragEnd) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static float getPower(ExtPoint dragStart, ExtPoint dragEnd) {
+		return dragEnd.getDistance(dragStart) * Globals.POWER_SCALE_RATIO;
 	}
 	
 	/**
@@ -44,7 +40,6 @@ public class Utility {
 	 * @return An array of y-coordinates that represent pixels at the top of the
 	 * landscape, with the tank locations at the end of the array after maxX.
 	 */
-	//TODO
 	public static int[] makeLandscape(){
 		
 		Float y1 = randrange(0.05f, 0.55f);
