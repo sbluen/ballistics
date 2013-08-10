@@ -55,12 +55,12 @@ public class Missile extends View {
 		//don't even want to do the math if we're off screen, just for now
 		//TODO: handle offscreen points
 		oldPos = pos;
-		pos = vel.plus(vel);
+		pos = pos.plus(vel);
 		vel = vel.plus(acc);
 		//int tempx = (int)pos.x;
 		//int tempy = Globals.maxY - (int)pos.y;
 		//this.sprite.setBounds(tempx, tempy, tempx+50, tempy+50);
-		//Log.i(tag, "("+pos.x+", "+pos.y+")");
+		Log.i(tag, pos.toString());
 		return inBounds();
 	}
 	

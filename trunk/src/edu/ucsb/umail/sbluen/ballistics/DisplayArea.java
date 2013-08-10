@@ -9,7 +9,7 @@ import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class DisplayArea extends View implements OnGestureListener{
+public class DisplayArea extends View{
 
 	public static final String tag = "DisplayArea";
 	
@@ -32,18 +32,21 @@ public class DisplayArea extends View implements OnGestureListener{
 
      @Override
      protected void onDraw(Canvas canvas) {
-    	 //draw the missile
-    	 if (missile != null && missile.step()){
-    		 missile.draw(canvas);
-    	 }
+    	 
+    	 //reverse the internally reversed y coordinate
+    	 canvas.scale(1,  -1);
+    	 canvas.translate(0, -Globals.maxY);
     	 
     	 //draw the line representation of angle and power
     	 if (dragStart != null && dragEnd != null){
     		 canvas.drawLine((int)dragStart.x, (int)dragStart.y, (int)dragEnd.x, (int)dragEnd.y, dragPaint);
     	 }
     	 
-    	 //reverse the internally reversed y coordinate
-    	 canvas.scale(1,  -1);
+    	 //draw the missile
+    	 if (missile != null && missile.step()){
+    		 missile.draw(canvas);
+    	 }
+
      }
      
      public void fire(float angle, float power){
@@ -61,16 +64,17 @@ public class DisplayArea extends View implements OnGestureListener{
          		this.getHeight()));
      }
      
+     //As a note, the subtraction is used to reverse the y coordinate that is inverted by default.
      public boolean onTouchEvent(MotionEvent e){
     	 if (e.getAction() == android.view.MotionEvent.ACTION_DOWN){
-    		 this.dragStart = new ExtPoint(e.getX(), e.getY());
+    		 this.dragStart = new ExtPoint(e.getX(), Globals.maxY - e.getY());
     		 return true; //consume event
     	 }else if (e.getAction() == android.view.MotionEvent.ACTION_MOVE){
-    		 this.dragEnd = new ExtPoint(e.getX(), e.getY());
+    		 this.dragEnd = new ExtPoint(e.getX(), Globals.maxY - e.getY());
     		 return true; //consume event
     	 }else if (e.getAction() == android.view.MotionEvent.ACTION_UP){
     		 
-    		 this.dragEnd = new ExtPoint(e.getX(), e.getY());    		 
+    		 this.dragEnd = new ExtPoint(e.getX(), Globals.maxY - e.getY());    		 
     		 fire(Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
     		 return true; //consume event
     	 }else{
@@ -78,43 +82,4 @@ public class DisplayArea extends View implements OnGestureListener{
     		 return false;
     	 }
      }
-
-	@Override
-	public boolean onDown(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onFling(MotionEvent arg0, MotionEvent arg1, float arg2,
-			float arg3) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onLongPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
-			float arg3) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onShowPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean onSingleTapUp(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-     
 }

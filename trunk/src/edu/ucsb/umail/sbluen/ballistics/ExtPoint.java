@@ -55,7 +55,7 @@ public class ExtPoint extends PointF{
 	 * would be the + operator
 	 * @param dp
 	 * @return a DPoint object whose x and y values are the sum of those of this and
-	 * of dp.
+	 * of other.
 	 */
 	public ExtPoint plus(ExtPoint other){
 		return new ExtPoint(this.x+other.x, this.y+other.y);
@@ -70,6 +70,16 @@ public class ExtPoint extends PointF{
 	 */
 	public ExtPoint plus(float x, float y){
 		return this.plus(new ExtPoint(x, y));
+	}
+	
+	/**
+	 * would be the - operator
+	 * @param dp
+	 * @return a DPoint object whose x and y values are the difference between that of
+	 * this point and of other
+	 */
+	public ExtPoint minus(ExtPoint other){
+		return new ExtPoint(this.x-other.x, this.y-other.y);
 	}
 	
 	/**

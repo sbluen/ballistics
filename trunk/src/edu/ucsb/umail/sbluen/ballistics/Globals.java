@@ -17,7 +17,7 @@ public class Globals {
 	public static final int FRAMES_PER_SECOND = 30;
 	public static final float SECONDS_PER_FRAME = 1f/FRAMES_PER_SECOND;
 	public static final int MILLISECONDS_PER_SECOND = 1000;
-	public static final float POWER_SCALE_RATIO = 0.05f;
+	public static final float POWER_SCALE_RATIO = 0.15f;
 	
 	/**The acceleration due to gravity, in pixels per frame.*/
 	//set to 10% of the screen per second

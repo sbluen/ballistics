@@ -22,7 +22,7 @@ public class Utility {
  * Returns the angle from dragStart to dragEnd
  */
 	public static float getAngle(ExtPoint dragStart, ExtPoint dragEnd) {
-		return (float) Math.atan2(dragEnd.x-dragStart.x, dragEnd.y-dragStart.y);
+		return (float) Math.atan2(dragEnd.y-dragStart.y, dragEnd.x-dragStart.x);
 	}
 
 	/**
