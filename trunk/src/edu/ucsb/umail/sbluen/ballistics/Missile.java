@@ -48,7 +48,7 @@ public class Missile extends View {
 	}
 	
 	/**
-	 * moves the missile to the next pixel that it should be on.
+	 * moves the missile to the next location that it should be on.
 	 * @return whether or not the missile still is within the bounds
 	 */
 	public boolean step(){

@@ -1,5 +1,7 @@
 package edu.ucsb.umail.sbluen.ballistics;
 
+import android.util.Log;
+
 /*************************************************************************
  *  Compilation:  javac Matrix.java
  *  Execution:    java Matrix
@@ -14,6 +16,7 @@ final public class Matrix {
     private final int M;             // number of rows
     private final int N;             // number of columns
     private final double[][] data;   // M-by-N array
+	private String tag = "Matrix";
 
     /**
 	 * @return the m
@@ -137,8 +140,9 @@ final public class Matrix {
 
     // return x = A^-1 b, assuming A is square and has full rank
     public Matrix solve(Matrix rhs) {
-        if (M != N || rhs.M != N || rhs.N != 1)
+        if (M != N || rhs.M != N || rhs.N != 1){
             throw new RuntimeException("Illegal matrix dimensions.");
+        }
 
         // create copies of the data
         Matrix A = new Matrix(this);
@@ -156,7 +160,10 @@ final public class Matrix {
             b.swap(i, max);
 
             // singular
-            if (A.data[i][i] == 0.0) throw new RuntimeException("Matrix is singular.");
+            if (A.data[i][i] == 0.0){
+            	Log.e(tag, "Matrix is singular.");
+            	throw new RuntimeException("Matrix is singular.");
+            }
 
             // pivot within b
             for (int j = i + 1; j < N; j++)

@@ -13,27 +13,39 @@ public class DisplayArea extends View{
 
 	public static final String tag = "DisplayArea";
 	
-     /* Our Missile together with the location it will be painted*/
+     //The Missile together with the location it will be painted
      private Missile missile;
      private ExtPoint dragStart;
      private ExtPoint dragEnd;
      private Paint dragPaint;
+     private Landscape landscape;
+     private Turret turret1, turret2;
+     
+     //This is used to determine whether a size has been determined.
+     private boolean sized = false;
 
      public DisplayArea(Context context) {
          super(context);
-         // Set the background
+         //Set the background
          //this.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.android));
           
          //set paints
          dragPaint = new Paint();
      	 dragPaint.setColor(Color.BLUE);
+     	 landscape = new Landscape();
      	 
      }
 
      @Override
      protected void onDraw(Canvas canvas) {
     	 
-    	 //reverse the internally reversed y coordinate
+    	 if (!sized || canvas==null){
+    		 //avoid degenerate situations
+    		 return;
+    	 }
+    	 
+    	 //Reverse the internally reversed y coordinate.
+    	 //The reason this is preferred is to more easily deal with the landscape math.
     	 canvas.scale(1,  -1);
     	 canvas.translate(0, -Globals.maxY);
     	 
@@ -46,6 +58,15 @@ public class DisplayArea extends View{
     	 if (missile != null && missile.step()){
     		 missile.draw(canvas);
     	 }
+    	 
+    	 if (!landscape.generated){
+    		 landscape.generate();
+    		 turret1 = new Turret(landscape.positions[0]);
+    		 turret2 = new Turret(landscape.positions[1]);
+    	 }
+    	 landscape.draw(canvas);
+    	 turret1.draw(canvas);
+    	 turret2.draw(canvas);
 
      }
      
@@ -56,10 +77,13 @@ public class DisplayArea extends View{
      
      protected void onSizeChanged  (int w, int h, int oldw, int oldh){
     	 if (w!=0&&h!=0){
-             Globals.maxX=w;
-             Globals.maxY=h;
+             Globals.maxX = w;
+             Globals.maxY = h;
              Globals.gravity = 0.1f*Globals.maxY*Globals.SECONDS_PER_FRAME;
     	 }
+    	 
+    	 sized = true;
+    	 
          Log.i(tag, String.format("width: %s, height: %s", this.getWidth(),
          		this.getHeight()));
      }
