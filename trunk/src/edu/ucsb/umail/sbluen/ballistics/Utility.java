@@ -20,7 +20,7 @@ public class Utility {
 //	}
 
 /**
- * Returns the angle from dragStart to dragEnd
+ * Returns the angle from dragStart to dragEnd in radians
  */
 	public static float getAngle(ExtPoint dragStart, ExtPoint dragEnd) {
 		return (float) Math.atan2(dragEnd.y-dragStart.y, dragEnd.x-dragStart.x);
@@ -46,7 +46,6 @@ public class Utility {
 	 * number between 0 and 1.
 	 */
 	public static float randrange(float low, float high){
-		Float temp = new Random(System.currentTimeMillis()).nextFloat();
 		return (low + new Random(System.currentTimeMillis()).nextFloat()*(high-low));
 	}
 

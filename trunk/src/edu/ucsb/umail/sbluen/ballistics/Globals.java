@@ -7,9 +7,6 @@ public class Globals {
 	/**maxX and maxY are in pixels and are set by class DisplayArea.*/
 	public static int maxY = 0;
 	
-	/**Mask may be used for terrain destruction*/
-	public static boolean[][] mask;
-	
 	/**In fractions of the screen. Used in the utility class functions*/
 	public static final float BUMP_HEIGHT_MAX = 0.4f;
 	/**In fractions of the screen. Used in the utility class functions*/
@@ -23,5 +20,5 @@ public class Globals {
 	//set to 10% of the screen per second
 	public static float gravity;
 	
-	static ExtPoint pos1, pos2;
+	public static final int numTurrets = 2;
 }

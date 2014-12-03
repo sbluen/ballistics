@@ -19,7 +19,9 @@ public class DisplayArea extends View{
      private ExtPoint dragEnd;
      private Paint dragPaint;
      private Landscape landscape;
-     private Turret turret1, turret2;
+     private Turret[] turrets;
+     private int turn;
+     private ExtPoint[] positions;
      
      //This is used to determine whether a size has been determined.
      private boolean sized = false;
@@ -59,20 +61,21 @@ public class DisplayArea extends View{
     		 missile.draw(canvas);
     	 }
     	 
-    	 if (!landscape.generated){
+    	 if (!landscape.isGenerated()){
     		 landscape.generate();
-    		 turret1 = new Turret(landscape.positions[0]);
-    		 turret2 = new Turret(landscape.positions[1]);
+    		 for (int i=0; i<Globals.numTurrets; i++){
+    			 turrets[i] = new Turret(landscape.getPositions()[i]);
+    		 }
     	 }
     	 landscape.draw(canvas);
-    	 turret1.draw(canvas);
-    	 turret2.draw(canvas);
-
+    	 for (int i=0; i<Globals.numTurrets; i++){
+    		 turrets[i].draw(canvas);
+    	 }
      }
      
-     public void fire(float angle, float power){
+     public void fire(ExtPoint startPos, float angle, float power){
     	 Log.i(tag, "angle: "+String.valueOf(angle)+"\npower: "+String.valueOf(power));
-    	 missile = new Missile(this.getContext(), Globals.pos1, angle, power);
+    	 missile = new Missile(this.getContext(), startPos, angle, power);
      }
      
      protected void onSizeChanged  (int w, int h, int oldw, int oldh){
@@ -99,7 +102,7 @@ public class DisplayArea extends View{
     	 }else if (e.getAction() == android.view.MotionEvent.ACTION_UP){
     		 
     		 this.dragEnd = new ExtPoint(e.getX(), Globals.maxY - e.getY());    		 
-    		 fire(Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
+    		 fire(positions[turn], Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
     		 return true; //consume event
     	 }else{
     		 Log.e(tag, "Invalid MotionEvent type");

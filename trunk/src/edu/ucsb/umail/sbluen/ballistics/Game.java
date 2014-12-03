@@ -16,7 +16,7 @@ public class Game extends Activity {
 	public static final String tag = "Game";
 	//unique identifier
     protected static final int GUIUPDATEIDENTIFIER = 0x101;
-    Thread myRefreshThread = null;
+    private Thread myRefreshThread = null;
     
     //This goes against certain coding standards, but these objects cannot be declared
     //final because the values in R are null until the layout is used.
@@ -83,9 +83,6 @@ public class Game extends Activity {
         		);
         	}
         });
-        
-        Globals.pos1 = new ExtPoint(50, 200);
-        displayarea.fire(30, 30);
         
         new Thread(new RefreshRunner()).start();
         
