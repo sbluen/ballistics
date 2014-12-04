@@ -1,6 +1,5 @@
 package edu.ucsb.umail.sbluen.ballistics;
 
-import android.util.Log;
 import java.util.Random;
 
 /*

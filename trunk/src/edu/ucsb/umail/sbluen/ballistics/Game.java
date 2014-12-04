@@ -16,8 +16,6 @@ public class Game extends Activity {
 	public static final String tag = "Game";
 	//unique identifier
     protected static final int GUIUPDATEIDENTIFIER = 0x101;
-    private Thread myRefreshThread = null;
-    
     //This goes against certain coding standards, but these objects cannot be declared
     //final because the values in R are null until the layout is used.
     DisplayArea displayarea;
@@ -58,31 +56,6 @@ public class Game extends Activity {
 //        displayarea.setHeight("fill_parent");
         
         displayarealayout.addView(displayarea);
-        
-        final Button gametomain = (Button)findViewById(R.id.gametomain);
-        gametomain.setOnClickListener(new Button.OnClickListener(){
-        	public void onClick(View v){
-        		Log.i(tag, "gametomain clicked");
-        		finish();
-        	}
-        });
-        
-        final Button firebutton = (Button)findViewById(R.id.firebutton);
-        angleedittext = (EditText)findViewById(R.id.angleedittext);
-        angleedittext.setText("65");
-        poweredittext = (EditText)findViewById(R.id.poweredittext);
-        poweredittext.setText("0");
-        firebutton.setOnClickListener(new Button.OnClickListener(){
-        	public void onClick(View v){
-        		Log.i(tag, "firebutton clicked");
-        		displayarea.fire(
-            		(float) Math.toRadians(Integer.parseInt(
-            					String.valueOf(angleedittext.getText())
-            		)),
-        			Integer.parseInt(String.valueOf(poweredittext.getText()))
-        		);
-        	}
-        });
         
         new Thread(new RefreshRunner()).start();
         

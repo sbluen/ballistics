@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -38,7 +37,10 @@ public class DisplayArea extends View{
      	 
      }
 
-     @Override
+     @SuppressLint("DrawAllocation")
+	@Override
+	//Suppressing warnings because the object generation is only done once here
+	//and is done here only because it cannot be done before the sizes are known.
      protected void onDraw(Canvas canvas) {
     	 
     	 if (!sized || canvas==null){
