@@ -7,6 +7,7 @@ import java.util.Random;
  */
 public class Utility {
 
+	@SuppressWarnings("unused")
 	private static String tag = "Utility";
 
 //	/**
