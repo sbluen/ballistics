@@ -16,8 +16,8 @@ public class Globals {
 	public static final float POWER_SCALE_RATIO = 0.15f;
 	
 	/**The acceleration due to gravity, in pixels per frame.*/
-	//set to 10% of the screen per second
-	public static float gravity;
+	//set to 0.1% of the screen per second per second by default
+	public static float gravity = 0.1f;
 	
 	/**number of turrets in a game by default*/
 	public static final int numTurrets = 2;

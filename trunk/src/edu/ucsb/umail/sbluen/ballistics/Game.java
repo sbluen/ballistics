@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Display;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -39,18 +40,14 @@ public class Game extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
-//        RelativeLayout playarealayout = 
-//        	(RelativeLayout) findViewById(R.id.playarealayout);
+        
+        Display display = getWindowManager().getDefaultDisplay();
+        Globals.maxX = display.getWidth();
+        Globals.maxY = display.getHeight();
+        
         final LinearLayout displayarealayout = 
         	(LinearLayout) findViewById(R.id.displayarealayout);
         displayarea = new DisplayArea(this);
-        
-//        //need to set the displayarea's height manually here because it must depend on
-//        //the playarealayout's height so that it doesn't ever overlap with the buttons
-//        displayarea.setMinimumHeight(playarealayout.getHeight() - 50);
-        
-//        displayarea.setWidth("fill_parent");
-//        displayarea.setHeight("fill_parent");
         
         displayarealayout.addView(displayarea);
         

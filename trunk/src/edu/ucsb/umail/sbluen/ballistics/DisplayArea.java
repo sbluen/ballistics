@@ -20,10 +20,9 @@ public class DisplayArea extends View{
      private Landscape landscape;
      private Turret[] turrets;
      private int turn;
-     private ExtPoint[] positions;
      
      //This is used to determine whether a size has been determined.
-     private boolean sized = false;
+//     private boolean sized = false;
 
      public DisplayArea(Context context) {
          super(context);
@@ -34,6 +33,7 @@ public class DisplayArea extends View{
          dragPaint = new Paint();
      	 dragPaint.setColor(Color.BLUE);
      	 landscape = new Landscape();
+     	 turrets = new Turret[Globals.numTurrets];
      	 
      }
 
@@ -43,7 +43,7 @@ public class DisplayArea extends View{
 	//and is done here only because it cannot be done before the sizes are known.
      protected void onDraw(Canvas canvas) {
     	 
-    	 if (!sized || canvas==null){
+    	 if (canvas==null){
     		 //avoid degenerate situations
     		 return;
     	 }
@@ -66,6 +66,7 @@ public class DisplayArea extends View{
     	 if (!landscape.isGenerated()){
     		 landscape.generate();
     		 for (int i=0; i<Globals.numTurrets; i++){
+    			 Log.i(tag, landscape.getPositions()[i].toString());
     			 turrets[i] = new Turret(landscape.getPositions()[i]);
     		 }
     	 }
@@ -80,18 +81,18 @@ public class DisplayArea extends View{
     	 missile = new Missile(this.getContext(), startPos, angle, power);
      }
      
-     protected void onSizeChanged  (int w, int h, int oldw, int oldh){
-    	 if (w!=0&&h!=0){
-             Globals.maxX = w;
-             Globals.maxY = h;
-             Globals.gravity = 0.1f*Globals.maxY*Globals.SECONDS_PER_FRAME;
-    	 }
-    	 
-    	 sized = true;
-    	 
-         Log.i(tag, String.format("width: %s, height: %s", this.getWidth(),
-         		this.getHeight()));
-     }
+//     protected void onSizeChanged  (int w, int h, int oldw, int oldh){
+//    	 if (w!=0&&h!=0){
+//             Globals.maxX = w;
+//             Globals.maxY = h;
+//             Globals.gravity = 0.1f*Globals.maxY*Globals.SECONDS_PER_FRAME;
+//    	 }
+//    	 
+//    	 sized = true;
+//    	 
+//         Log.i(tag, String.format("width: %s, height: %s", this.getWidth(),
+//         		this.getHeight()));
+//     }
      
      //As a note, the subtraction is used to reverse the y coordinate that is inverted by default.
      public boolean onTouchEvent(MotionEvent e){
@@ -104,7 +105,7 @@ public class DisplayArea extends View{
     	 }else if (e.getAction() == android.view.MotionEvent.ACTION_UP){
     		 
     		 this.dragEnd = new ExtPoint(e.getX(), Globals.maxY - e.getY());    		 
-    		 fire(positions[turn], Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
+    		 fire(turrets[turn].p, Utility.getAngle(dragStart, dragEnd), Utility.getPower(dragStart, dragEnd));
     		 return true; //consume event
     	 }else{
     		 Log.e(tag, "Invalid MotionEvent type");
