@@ -13,26 +13,29 @@ android:orientation="vertical"
 android:layout_centerVertical="true"
 android:layout_centerHorizontal="true"
 >
+
 <Button
-android:id="@+id/play"
-android:layout_width="100px"
-android:layout_height="wrap_content"
-android:text="Play"
->
+    android:id="@+id/play"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:text="Play" >
+
 </Button>
+
 <Button
-android:id="@+id/help"
-android:layout_width="100px"
-android:layout_height="wrap_content"
-android:text="Instructions"
->
+    android:id="@+id/help"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:text="Instructions" >
+
 </Button>
+
 <Button
-android:id="@+id/exit"
-android:layout_width="100px"
-android:layout_height="wrap_content"
-android:text="Exit"
->
+    android:id="@+id/exit"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:text="Exit" >
+
 </Button>
 </LinearLayout>
 </RelativeLayout>

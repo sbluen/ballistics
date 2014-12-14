@@ -37,7 +37,7 @@ public class Missile extends View {
 		vel = new ExtPoint(power*(float)Math.cos(angle), power*(float)Math.sin(angle));
 		Log.i(tag, String.format("angle, power = %f, %f", angle, power));
 		//Log.i(tag, vel.toString());
-		acc = new ExtPoint(0, -Globals.gravity);
+		acc = new ExtPoint(0, -Globals.gravity*Globals.maxY*Globals.SECONDS_PER_FRAME);
 		sprite = this.getResources().getDrawable(R.drawable.world);
 	}
 	
